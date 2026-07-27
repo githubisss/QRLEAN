@@ -769,51 +769,9 @@
         let currentProvider = null;
 
         // SDK Initialization
-        async function initSDK() {
-            const dataHandler = {
-                onDataChanged(data) {
-                    console.log('Data updated:', data);
-                    updateUserStats(data);
-                }
-            };
+        
 
-            if (window.dataSdk) {
-                const result = await window.dataSdk.init(dataHandler);
-                if (!result.isOk) {
-                    console.error('Failed to initialize Data SDK');
-                }
-            }
-
-            if (window.elementSdk) {
-                window.elementSdk.init({
-                    defaultConfig,
-                    onConfigChange: async (config) => {
-                        document.getElementById('appTitle').textContent = config.app_title || defaultConfig.app_title;
-                        document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
-                        document.getElementById('ecoPointsLabel').textContent = config.eco_points_label || defaultConfig.eco_points_label;
-                    },
-                    mapToCapabilities: (config) => ({
-                        recolorables: [
-                            {
-                                get: () => config.primary_color || "#10b981",
-                                set: (value) => {
-                                    config.primary_color = value;
-                                    window.elementSdk.setConfig({ primary_color: value });
-                                }
-                            }
-                        ],
-                        borderables: [],
-                        fontEditable: undefined,
-                        fontSizeable: undefined
-                    }),
-                    mapToEditPanelValues: (config) => new Map([
-                        ["app_title", config.app_title || defaultConfig.app_title],
-                        ["tagline", config.tagline || defaultConfig.tagline],
-                        ["eco_points_label", config.eco_points_label || defaultConfig.eco_points_label]
-                    ])
-                });
-            }
-        }
+                 
 
         // Navigation Functions
         function showScreen(screenId) {
@@ -926,31 +884,12 @@
             updateUserDisplay();
             
             // Save to SDK
-            saveReport(type);
+           
             
             showScreen('confirmationScreen');
         }
 
-        async function saveReport(rewardType) {
-            if (window.dataSdk) {
-                const report = {
-                    id: 'RPT' + Date.now(),
-                    user_id: 'USER001',
-                    waste_photo: 'captured',
-                    location: 'Near Arunachala College',
-                    reward_type: rewardType,
-                    eco_points: 50,
-                    status: 'pending',
-                    timestamp: Date.now(),
-                    verified: true
-                };
-                
-                const result = await window.dataSdk.create(report);
-                if (!result.isOk) {
-                    console.error('Failed to save report');
-                }
-            }
-        }
+       
 
         function showLeaderboard() {
             showScreen('leaderboardScreen');
@@ -1032,7 +971,7 @@
         }
 
         // Initialize on load
-        initSDK();
+        
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c9d0d7a26327e93',t:'MTc3MDQwNjEyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ 
 </html>
