@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260727-05-609cca1"}');</script><script src="/_sdk/728f18890c0241e5.telemetry_sdk.js" integrity="sha512-cMy0xd29wRWs8nyV19fws/+pwQ0u98A3fewCalZ/OWXQXUwzmcx7jKUuZ511uTJlUe1gP0Undii48zuekOylMw=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRClean India - Smart Waste Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/935a53bc2e11fb8d.data_sdk.js" integrity="sha512-qr2oyPnEys1WebcOABaRh6hG77r5PWpqeWW6JTKbRJqly/INsfBi31CVNlTmHqjgeLpkVmmHZJUdxSx/32tOFQ=="></script>
+  <script src="/_sdk/58fe3688b755eeb3.element_sdk.js" integrity="sha512-OMjvInGwXrNzr3Wzjbb1g4+6UqSJ6JZQ8iyW9B1TgkUVKtQQya+sYfHVDL3seI5VxPiNT5nwy1K0LUByUi9ETQ=="></script>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-eco {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        
+        .gradient-dark {
+            background: linear-gradient(135deg, #0f766e 0%, #059669 100%);
+        }
+        
+        .card-glow {
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.4s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .pulse-eco {
+            animation: pulseEco 2s infinite;
+        }
+        
+        @keyframes pulseEco {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+        }
+        
+        .scanning-line {
+            animation: scan 2s linear infinite;
+        }
+        
+        @keyframes scan {
+            0%, 100% { transform: translateY(-100%); }
+            50% { transform: translateY(100%); }
+        }
+        
+        .progress-bar {
+            animation: progress 2s ease-in-out;
+        }
+        
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+        
+        .reward-card {
+            transition: all 0.3s ease;
+        }
+        
+        .reward-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+        
+        .reward-unavailable {
+            opacity: 0.5;
+            filter: grayscale(100%);
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full bg-gray-50">
+  <div class="h-full w-full overflow-auto"><!-- Main Container -->
+   <div class="max-w-md mx-auto bg-white min-h-full shadow-xl relative"><!-- HOME SCREEN -->
+    <div id="homeScreen" class="min-h-full flex flex-col"><!-- Header -->
+     <div class="gradient-eco text-white p-6 pb-8 rounded-b-3xl">
+      <div class="flex justify-between items-center mb-4">
+       <div>
+        <h1 id="appTitle" class="text-2xl font-bold">QRClean India</h1>
+        <p id="tagline" class="text-sm opacity-90">Clean India, One Scan at a Time</p>
+       </div><button onclick="showUserMenu()" class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center"> <span class="text-xl">👤</span> </button>
+      </div><!-- User Stats -->
+      <div class="bg-white bg-opacity-20 rounded-2xl p-4 backdrop-blur-sm">
+       <div class="flex justify-around text-center">
+        <div>
+         <div class="text-2xl font-bold" id="userEcoPoints">
+          0
+         </div>
+         <div class="text-xs opacity-90" id="ecoPointsLabel">
+          Eco Points
+         </div>
+        </div>
+        <div class="w-px bg-white opacity-30"></div>
+        <div>
+         <div class="text-2xl font-bold" id="userReports">
+          0
+         </div>
+         <div class="text-xs opacity-90">
+          Reports
+         </div>
+        </div>
+        <div class="w-px bg-white opacity-30"></div>
+        <div>
+         <div class="text-2xl font-bold" id="userRank">
+          #-
+         </div>
+         <div class="text-xs opacity-90">
+          Rank
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Main Actions -->
+     <div class="flex-1 p-6">
+      <div class="mb-6">
+       <h2 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h2><!-- Primary Action --> <button onclick="scanQRCode()" class="w-full gradient-eco text-white p-6 rounded-2xl mb-4 card-glow pulse-eco">
+        <div class="flex items-center justify-between">
+         <div class="text-left">
+          <div class="text-xl font-bold mb-1">
+           📱 Scan QR Code
+          </div>
+          <div class="text-sm opacity-90">
+           Report waste &amp; earn rewards
+          </div>
+         </div>
+         <div class="text-3xl">
+          →
+         </div>
+        </div></button> <!-- Secondary Actions Grid -->
+       <div class="grid grid-cols-2 gap-3"><button onclick="reportWebsite()" class="bg-white border-2 border-emerald-200 p-4 rounded-xl card-glow hover:border-emerald-400 transition-all">
+         <div class="text-3xl mb-2">
+          🌐
+         </div>
+         <div class="text-sm font-semibold text-gray-800">
+          Report via Website
+         </div></button> <button onclick="showLeaderboard()" class="bg-white border-2 border-emerald-200 p-4 rounded-xl card-glow hover:border-emerald-400 transition-all">
+         <div class="text-3xl mb-2">
+          🏆
+         </div>
+         <div class="text-sm font-semibold text-gray-800">
+          Leaderboard
+         </div></button> <button onclick="showRewards()" class="bg-white border-2 border-emerald-200 p-4 rounded-xl card-glow hover:border-emerald-400 transition-all">
+         <div class="text-3xl mb-2">
+          🎁
+         </div>
+         <div class="text-sm font-semibold text-gray-800">
+          My Rewards
+         </div></button> <button onclick="showImpact()" class="bg-white border-2 border-emerald-200 p-4 rounded-xl card-glow hover:border-emerald-400 transition-all">
+         <div class="text-3xl mb-2">
+          ♻️
+         </div>
+         <div class="text-sm font-semibold text-gray-800">
+          Impact
+         </div></button>
+       </div>
+      </div><!-- Provider Section -->
+      <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-2xl border border-purple-200">
+       <div class="flex items-center justify-between mb-2">
+        <div>
+         <h3 class="font-semibold text-gray-800">Are you a Provider?</h3>
+         <p class="text-xs text-gray-600">Donate rewards &amp; get promoted</p>
+        </div><span class="text-2xl">🏪</span>
+       </div><button onclick="showProviderLogin()" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors"> Provider Login </button>
+      </div>
+     </div>
+    </div><!-- QR SCAN SCREEN -->
+    <div id="qrScanScreen" class="hidden min-h-full">
+     <div class="p-4"><button onclick="goHome()" class="text-emerald-600 text-sm font-medium mb-4">← Back</button>
+      <h2 class="text-xl font-bold text-gray-800 mb-2">Scan QR Code</h2>
+      <p class="text-sm text-gray-600 mb-6">Point your camera at the QR code near waste dump</p>
+     </div><!-- QR Scanner Viewfinder -->
+     <div id="cameraViewfinder" class="px-4 mb-6">
+      <div class="relative bg-gray-900 rounded-2xl overflow-hidden" style="aspect-ratio: 3/4;">
+       <div class="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 flex items-center justify-center">
+        <div class="text-center text-white">
+         <div class="text-5xl mb-3">
+          📷
+         </div>
+         <p class="text-sm opacity-75">Camera Active</p>
+        </div>
+       </div><!-- Scanning frame -->
+       <div class="absolute inset-8 border-4 border-emerald-400 rounded-2xl"><!-- Corner markers -->
+        <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-white -mt-1 -ml-1"></div>
+        <div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-white -mt-1 -mr-1"></div>
+        <div class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-white -mb-1 -ml-1"></div>
+        <div class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-white -mb-1 -mr-1"></div><!-- Scanning line -->
+        <div class="absolute inset-0 overflow-hidden">
+         <div class="scanning-line w-full h-1 bg-emerald-400 opacity-75"></div>
+        </div>
+       </div>
+       <div class="absolute bottom-4 left-0 right-0 text-center">
+        <div class="bg-black bg-opacity-50 text-white text-xs py-2 px-4 rounded-full inline-block">
+         Scanning for QR code...
+        </div>
+       </div>
+      </div>
+     </div><!-- QR Code Display -->
+     <div id="qrCodeDisplay" class="hidden px-4 mb-6">
+      <div class="bg-white rounded-2xl p-8 flex flex-col items-center card-glow">
+       <p class="text-xs text-gray-500 mb-4 font-medium">QR Code Detected - Click to Scan</p>
+       <svg class="w-40 h-40 cursor-pointer hover:opacity-80 transition-opacity" onclick="qrDetected()" viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><!-- QR Code Background --> <rect width="200" height="200" fill="white" /> <!-- Position markers (corners) --> <!-- Top Left --> <rect x="10" y="10" width="50" height="50" fill="black" /> <rect x="14" y="14" width="42" height="42" fill="white" /> <rect x="20" y="20" width="30" height="30" fill="black" /> <!-- Top Right --> <rect x="140" y="10" width="50" height="50" fill="black" /> <rect x="144" y="14" width="42" height="42" fill="white" /> <rect x="150" y="20" width="30" height="30" fill="black" /> <!-- Bottom Left --> <rect x="10" y="140" width="50" height="50" fill="black" /> <rect x="14" y="144" width="42" height="42" fill="white" /> <rect x="20" y="150" width="30" height="30" fill="black" /> <!-- QR Data Pattern --> <g fill="black">
+         <rect x="70" y="30" width="6" height="6" />
+         <rect x="82" y="30" width="6" height="6" />
+         <rect x="94" y="30" width="6" height="6" />
+         <rect x="70" y="42" width="6" height="6" />
+         <rect x="88" y="42" width="6" height="6" />
+         <rect x="100" y="42" width="6" height="6" />
+         <rect x="80" y="70" width="6" height="6" />
+         <rect x="92" y="70" width="6" height="6" />
+         <rect x="104" y="70" width="6" height="6" />
+         <rect x="70" y="82" width="6" height="6" />
+         <rect x="88" y="82" width="6" height="6" />
+         <rect x="100" y="82" width="6" height="6" />
+         <rect x="75" y="100" width="6" height="6" />
+         <rect x="87" y="100" width="6" height="6" />
+         <rect x="99" y="100" width="6" height="6" />
+         <rect x="72" y="118" width="6" height="6" />
+         <rect x="84" y="118" width="6" height="6" />
+         <rect x="102" y="118" width="6" height="6" />
+         <rect x="78" y="130" width="6" height="6" />
+         <rect x="90" y="130" width="6" height="6" />
+         <rect x="105" y="130" width="6" height="6" />
+         <rect x="70" y="145" width="6" height="6" />
+         <rect x="82" y="145" width="6" height="6" />
+         <rect x="94" y="145" width="6" height="6" />
+        </g> <!-- Center Logo area --> <circle cx="100" cy="100" r="8" fill="#10b981" opacity="0.8" /> <text x="100" y="104" font-size="10" fill="white" text-anchor="middle" font-weight="bold">
+         ♻
+        </text>
+       </svg>
+       <p class="text-xs text-gray-500 mt-4 font-medium text-center">Waste Dump Location QR</p>
+      </div>
+     </div>
+     <div class="px-4"><button id="simulateBtn" onclick="showQRCode()" class="w-full gradient-eco text-white py-4 px-6 rounded-xl font-semibold"> 📱 Position Camera &amp; Show QR Code </button>
+     </div>
+    </div><!-- WASTE REPORTING SCREEN -->
+    <div id="reportScreen" class="hidden min-h-full">
+     <div class="p-4"><button onclick="goHome()" class="text-emerald-600 text-sm font-medium mb-4">← Back</button>
+      <h2 class="text-xl font-bold text-gray-800 mb-2">Capture Waste Photo</h2>
+      <p class="text-sm text-gray-600 mb-6">Take a clear photo of the waste dump</p>
+     </div><!-- Camera View -->
+     <div class="px-4 mb-4">
+      <div id="cameraView" class="relative bg-gray-900 rounded-2xl overflow-hidden" style="aspect-ratio: 3/4;">
+       <div class="absolute inset-0 bg-gradient-to-br from-orange-300 to-brown-400 flex items-center justify-center">
+        <div class="text-center">
+         <div class="text-4xl mb-2">
+          📷
+         </div>
+         <p class="text-sm text-white">Camera View</p>
+        </div>
+       </div>
+       <div class="absolute inset-4 border-2 border-white border-dashed rounded-xl opacity-50"></div>
+       <div class="absolute bottom-4 left-0 right-0 flex justify-center"><button onclick="captureWastePhoto()" class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-3xl shadow-lg"> 📸 </button>
+       </div>
+      </div>
+     </div><!-- Photo Preview (hidden initially) -->
+     <div id="photoPreview" class="hidden px-4 mb-4">
+      <div class="bg-gradient-to-br from-orange-200 to-brown-300 rounded-2xl p-8 text-center" style="aspect-ratio: 4/3;">
+       <div class="text-5xl mb-2">
+        🗑️
+       </div>
+       <p class="text-sm text-gray-700 font-medium">Waste Captured</p>
+      </div>
+     </div>
+     <div id="uploadSection" class="hidden px-4"><button onclick="uploadAndVerify()" class="w-full gradient-eco text-white py-4 px-6 rounded-xl font-semibold mb-3"> 📤 Upload &amp; Verify with AI </button> <button onclick="captureWastePhoto()" class="w-full bg-gray-200 text-gray-700 py-3 px-6 rounded-xl font-medium"> 🔄 Retake Photo </button>
+     </div>
+    </div><!-- AI VERIFICATION SCREEN -->
+    <div id="verificationScreen" class="hidden min-h-full flex flex-col items-center justify-center p-6">
+     <div class="text-center bounce-in">
+      <div class="w-24 h-24 mx-auto mb-6 relative">
+       <div class="absolute inset-0 bg-emerald-400 rounded-full opacity-20 animate-ping"></div>
+       <div class="relative w-24 h-24 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center text-4xl">
+        🤖
+       </div>
+      </div>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">AI Verifying Image</h2>
+      <p class="text-gray-600 mb-6">Please wait while we analyze the waste...</p>
+      <div class="w-full bg-gray-200 rounded-full h-2 mb-8 overflow-hidden">
+       <div class="progress-bar h-full gradient-eco rounded-full"></div>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-left">
+       <div class="text-xs font-semibold text-blue-800 mb-2">
+        AI Analysis:
+       </div>
+       <div class="space-y-1 text-xs text-blue-700">
+        <div id="aiStep1" class="opacity-50">
+         ✓ Image quality check...
+        </div>
+        <div id="aiStep2" class="opacity-50">
+         ✓ Waste detection...
+        </div>
+        <div id="aiStep3" class="opacity-50">
+         ✓ Location verification...
+        </div>
+        <div id="aiStep4" class="opacity-50">
+         ✓ Fraud detection...
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- REWARD SELECTION SCREEN -->
+    <div id="rewardScreen" class="hidden min-h-full">
+     <div class="gradient-eco text-white p-6 rounded-b-3xl mb-6">
+      <h2 class="text-xl font-bold mb-1">✅ Verification Successful!</h2>
+      <p class="text-sm opacity-90">Choose your reward</p>
+     </div>
+     <div class="px-6 pb-6">
+      <div class="grid grid-cols-2 gap-4 mb-6"><button onclick="selectReward('money', true)" class="reward-card bg-white border-2 border-gray-200 p-4 rounded-xl text-center">
+        <div class="text-4xl mb-2">
+         💰
+        </div>
+        <div class="text-sm font-semibold text-gray-800">
+         Money
+        </div>
+        <div class="text-xs text-emerald-600 font-medium mt-1">
+         ₹20
+        </div></button> <button onclick="selectReward('food', true)" class="reward-card bg-white border-2 border-gray-200 p-4 rounded-xl text-center">
+        <div class="text-4xl mb-2">
+         🍲
+        </div>
+        <div class="text-sm font-semibold text-gray-800">
+         Food
+        </div>
+        <div class="text-xs text-emerald-600 font-medium mt-1">
+         Available
+        </div></button> <button onclick="selectReward('toys', false)" class="reward-card reward-unavailable bg-white border-2 border-gray-200 p-4 rounded-xl text-center">
+        <div class="text-4xl mb-2">
+         🧸
+        </div>
+        <div class="text-sm font-semibold text-gray-800">
+         Toys
+        </div>
+        <div class="text-xs text-red-500 font-medium mt-1">
+         Unavailable
+        </div></button> <button onclick="selectReward('clothes', true)" class="reward-card bg-white border-2 border-gray-200 p-4 rounded-xl text-center">
+        <div class="text-4xl mb-2">
+         👕
+        </div>
+        <div class="text-sm font-semibold text-gray-800">
+         Clothes
+        </div>
+        <div class="text-xs text-emerald-600 font-medium mt-1">
+         Available
+        </div></button> <button onclick="selectReward('coupons', true)" class="reward-card bg-white border-2 border-gray-200 p-4 rounded-xl text-center col-span-2">
+        <div class="text-4xl mb-2">
+         🎟️
+        </div>
+        <div class="text-sm font-semibold text-gray-800">
+         Shopping Coupons
+        </div>
+        <div class="text-xs text-emerald-600 font-medium mt-1">
+         ₹50 Value
+        </div></button>
+      </div><button onclick="goHome()" class="w-full bg-gray-200 text-gray-700 py-3 px-6 rounded-xl font-medium"> Skip for Now </button>
+     </div>
+    </div><!-- CONFIRMATION SCREEN -->
+    <div id="confirmationScreen" class="hidden min-h-full flex flex-col">
+     <div class="flex-1 flex flex-col items-center justify-center p-6">
+      <div class="text-center bounce-in mb-8">
+       <div class="w-20 h-20 mx-auto bg-emerald-100 rounded-full flex items-center justify-center mb-4"><span class="text-4xl">🎉</span>
+       </div>
+       <h2 class="text-2xl font-bold text-gray-800 mb-2">Report Submitted!</h2>
+       <p class="text-gray-600 text-sm">Thank you for keeping India clean</p>
+      </div><!-- Reward Card -->
+      <div id="rewardCard" class="w-full gradient-eco text-white p-6 rounded-2xl card-glow mb-6">
+       <div class="flex items-center justify-between mb-3"><span class="text-sm font-medium">Reward Confirmed</span> <span class="text-xs opacity-75" id="rewardCode">#REW001</span>
+       </div>
+       <div class="text-3xl font-bold mb-2" id="rewardValue">
+        💰 ₹20
+       </div>
+       <div class="text-sm opacity-90" id="rewardDescription">
+        Credited to your wallet
+       </div>
+       <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+        <div class="flex justify-between text-xs"><span>Eco Points Earned:</span> <span class="font-bold" id="pointsEarned">+50</span>
+        </div>
+       </div>
+      </div><!-- Status -->
+      <div class="w-full bg-yellow-50 border border-yellow-200 p-4 rounded-xl mb-6">
+       <div class="flex items-start"><span class="text-2xl mr-3">🚛</span>
+        <div>
+         <div class="text-sm font-semibold text-yellow-800">
+          Cleaning Crew Notified
+         </div>
+         <div class="text-xs text-yellow-600 mt-1">
+          Expected cleanup: 2-4 hours
+         </div>
+        </div>
+       </div>
+      </div><button onclick="goHome()" class="w-full gradient-eco text-white py-4 px-6 rounded-xl font-semibold"> Back to Home </button>
+     </div>
+    </div><!-- LEADERBOARD SCREEN -->
+    <div id="leaderboardScreen" class="hidden min-h-full">
+     <div class="gradient-eco text-white p-6 rounded-b-3xl mb-6"><button onclick="goHome()" class="text-white text-sm font-medium mb-4">← Back</button>
+      <h2 class="text-2xl font-bold mb-1">🏆 Leaderboard</h2>
+      <p class="text-sm opacity-90">Top Eco Warriors this month</p>
+     </div>
+     <div class="px-6 pb-6"><!-- Tabs -->
+      <div class="flex bg-gray-100 rounded-lg p-1 mb-6"><button onclick="switchLeaderboardTab('weekly')" id="weeklyTab" class="flex-1 py-2 px-4 rounded-md text-sm font-medium text-gray-600"> Weekly </button> <button onclick="switchLeaderboardTab('monthly')" id="monthlyTab" class="flex-1 py-2 px-4 rounded-md text-sm font-medium bg-white text-emerald-600 shadow-sm"> Monthly </button>
+      </div><!-- Top 3 -->
+      <div class="grid grid-cols-3 gap-3 mb-6">
+       <div class="text-center">
+        <div class="w-16 h-16 mx-auto bg-gray-200 rounded-full flex items-center justify-center mb-2"><span class="text-2xl">🥈</span>
+        </div>
+        <div class="text-sm font-semibold text-gray-800">
+         Priya S.
+        </div>
+        <div class="text-xs text-gray-600">
+         2,450 pts
+        </div>
+       </div>
+       <div class="text-center -mt-4">
+        <div class="w-20 h-20 mx-auto bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mb-2 shadow-lg"><span class="text-3xl">👑</span>
+        </div>
+        <div class="text-sm font-bold text-gray-800">
+         Rahul K.
+        </div>
+        <div class="text-xs text-emerald-600 font-semibold">
+         3,890 pts
+        </div>
+        <div class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full inline-block mt-1">
+         Eco Hero
+        </div>
+       </div>
+       <div class="text-center">
+        <div class="w-16 h-16 mx-auto bg-orange-200 rounded-full flex items-center justify-center mb-2"><span class="text-2xl">🥉</span>
+        </div>
+        <div class="text-sm font-semibold text-gray-800">
+         Amit P.
+        </div>
+        <div class="text-xs text-gray-600">
+         2,210 pts
+        </div>
+       </div>
+      </div><!-- Rest of leaderboard -->
+      <div class="space-y-3" id="leaderboardList">
+       <div class="bg-white border border-gray-200 rounded-xl p-4 flex items-center justify-between">
+        <div class="flex items-center">
+         <div class="w-8 text-center font-bold text-gray-400 mr-3">
+          4
+         </div>
+         <div>
+          <div class="text-sm font-semibold text-gray-800">
+           Sneha M.
+          </div>
+          <div class="text-xs text-gray-500">
+           1,890 points
+          </div>
+         </div>
+        </div>
+        <div class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+         Green Champion
+        </div>
+       </div>
+       <div class="bg-white border border-gray-200 rounded-xl p-4 flex items-center justify-between">
+        <div class="flex items-center">
+         <div class="w-8 text-center font-bold text-gray-400 mr-3">
+          5
+         </div>
+         <div>
+          <div class="text-sm font-semibold text-gray-800">
+           Arjun T.
+          </div>
+          <div class="text-xs text-gray-500">
+           1,650 points
+          </div>
+         </div>
+        </div>
+        <div class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
+         Eco Warrior
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- MY REWARDS SCREEN -->
+    <div id="myRewardsScreen" class="hidden min-h-full">
+     <div class="gradient-eco text-white p-6 rounded-b-3xl mb-6"><button onclick="goHome()" class="text-white text-sm font-medium mb-4">← Back</button>
+      <h2 class="text-2xl font-bold mb-1">🎁 My Rewards</h2>
+      <p class="text-sm opacity-90">Your earned rewards &amp; coupons</p>
+     </div>
+     <div class="px-6 pb-6">
+      <div class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white p-6 rounded-2xl mb-6">
+       <div class="text-sm opacity-90 mb-1">
+        Total Wallet Balance
+       </div>
+       <div class="text-4xl font-bold">
+        ₹280
+       </div>
+      </div>
+      <h3 class="text-sm font-semibold text-gray-700 mb-3">Recent Rewards</h3>
+      <div class="space-y-3">
+       <div class="bg-white border-2 border-emerald-200 rounded-xl p-4">
+        <div class="flex items-center justify-between mb-2"><span class="text-2xl">💰</span> <span class="text-xs text-gray-500">#REW012</span>
+        </div>
+        <div class="text-sm font-semibold text-gray-800">
+         ₹20 Cash Reward
+        </div>
+        <div class="text-xs text-gray-600 mt-1">
+         Credited • 2 hours ago
+        </div>
+       </div>
+       <div class="bg-white border-2 border-purple-200 rounded-xl p-4">
+        <div class="flex items-center justify-between mb-2"><span class="text-2xl">🎟️</span> <span class="text-xs text-gray-500">#CPN045</span>
+        </div>
+        <div class="text-sm font-semibold text-gray-800">
+         ₹50 Shopping Coupon
+        </div>
+        <div class="text-xs text-gray-600 mt-1">
+         Valid until Dec 31 • Sponsored by GreenMart
+        </div>
+       </div>
+       <div class="bg-white border-2 border-orange-200 rounded-xl p-4">
+        <div class="flex items-center justify-between mb-2"><span class="text-2xl">🍲</span> <span class="text-xs text-gray-500">#FOOD023</span>
+        </div>
+        <div class="text-sm font-semibold text-gray-800">
+         Free Meal Voucher
+        </div>
+        <div class="text-xs text-gray-600 mt-1">
+         Redeemed • Sponsored by EcoCafe
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- IMPACT SCREEN -->
+    <div id="impactScreen" class="hidden min-h-full">
+     <div class="gradient-eco text-white p-6 rounded-b-3xl mb-6"><button onclick="goHome()" class="text-white text-sm font-medium mb-4">← Back</button>
+      <h2 class="text-2xl font-bold mb-1">♻️ Your Impact</h2>
+      <p class="text-sm opacity-90">See how you're changing India</p>
+     </div>
+     <div class="px-6 pb-6"><!-- Personal Stats -->
+      <div class="bg-white rounded-2xl p-6 card-glow mb-6">
+       <h3 class="text-sm font-semibold text-gray-700 mb-4">Your Contribution</h3>
+       <div class="grid grid-cols-2 gap-4">
+        <div class="text-center p-4 bg-emerald-50 rounded-xl">
+         <div class="text-2xl font-bold text-emerald-600">
+          12
+         </div>
+         <div class="text-xs text-gray-600 mt-1">
+          Reports Filed
+         </div>
+        </div>
+        <div class="text-center p-4 bg-blue-50 rounded-xl">
+         <div class="text-2xl font-bold text-blue-600">
+          8
+         </div>
+         <div class="text-xs text-gray-600 mt-1">
+          Areas Cleaned
+         </div>
+        </div>
+        <div class="text-center p-4 bg-purple-50 rounded-xl">
+         <div class="text-2xl font-bold text-purple-600">
+          145kg
+         </div>
+         <div class="text-xs text-gray-600 mt-1">
+          Waste Removed
+         </div>
+        </div>
+        <div class="text-center p-4 bg-orange-50 rounded-xl">
+         <div class="text-2xl font-bold text-orange-600">
+          72kg
+         </div>
+         <div class="text-xs text-gray-600 mt-1">
+          CO₂ Saved
+         </div>
+        </div>
+       </div>
+      </div><!-- Community Impact -->
+      <div class="bg-white rounded-2xl p-6 card-glow mb-6">
+       <h3 class="text-sm font-semibold text-gray-700 mb-4">Community Impact</h3>
+       <div class="space-y-4">
+        <div>
+         <div class="flex justify-between text-xs text-gray-600 mb-1"><span>Waste Collected</span> <span class="font-semibold">24,567 kg</span>
+         </div>
+         <div class="w-full bg-gray-200 rounded-full h-2">
+          <div class="bg-emerald-500 h-2 rounded-full" style="width: 85%"></div>
+         </div>
+        </div>
+        <div>
+         <div class="flex justify-between text-xs text-gray-600 mb-1"><span>Waste Recycled</span> <span class="font-semibold">18,450 kg</span>
+         </div>
+         <div class="w-full bg-gray-200 rounded-full h-2">
+          <div class="bg-blue-500 h-2 rounded-full" style="width: 75%"></div>
+         </div>
+        </div>
+        <div>
+         <div class="flex justify-between text-xs text-gray-600 mb-1"><span>Bricks Produced</span> <span class="font-semibold">3,245 units</span>
+         </div>
+         <div class="w-full bg-gray-200 rounded-full h-2">
+          <div class="bg-purple-500 h-2 rounded-full" style="width: 65%"></div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Recycling Impact -->
+      <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-emerald-200 rounded-2xl p-6">
+       <div class="flex items-center mb-4"><span class="text-3xl mr-3">🏠</span>
+        <div>
+         <h3 class="text-sm font-semibold text-gray-800">Affordable Housing</h3>
+         <p class="text-xs text-gray-600">Waste converted to construction bricks</p>
+        </div>
+       </div>
+       <div class="grid grid-cols-2 gap-3 text-center">
+        <div class="bg-white p-3 rounded-lg">
+         <div class="text-xl font-bold text-emerald-600">
+          3,245
+         </div>
+         <div class="text-xs text-gray-600">
+          Bricks Made
+         </div>
+        </div>
+        <div class="bg-white p-3 rounded-lg">
+         <div class="text-xl font-bold text-blue-600">
+          12
+         </div>
+         <div class="text-xs text-gray-600">
+          Homes Built
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- PROVIDER LOGIN SCREEN -->
+    <div id="providerLoginScreen" class="hidden min-h-full">
+     <div class="gradient-dark text-white p-6 rounded-b-3xl mb-6"><button onclick="goHome()" class="text-white text-sm font-medium mb-4">← Back</button>
+      <h2 class="text-2xl font-bold mb-1">🏪 Provider Portal</h2>
+      <p class="text-sm opacity-90">Login or create an account</p>
+     </div>
+     <div class="px-6 pb-6">
+      <form onsubmit="providerLogin(event)" class="space-y-4 mb-6">
+       <div><label class="block text-sm font-medium text-gray-700 mb-2">Provider Type</label> <select id="providerType" class="w-full p-3 border border-gray-300 rounded-lg"> <option value="shop">Shop/Store</option> <option value="restaurant">Restaurant/Cafe</option> <option value="organization">Organization/NGO</option> <option value="household">Household Donor</option> </select>
+       </div>
+       <div><label class="block text-sm font-medium text-gray-700 mb-2">Business Name</label> <input type="text" id="businessName" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Enter your business name" required>
+       </div>
+       <div><label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label> <input type="tel" id="providerPhone" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="+91 XXXXX XXXXX" required>
+       </div><button type="submit" class="w-full gradient-dark text-white py-4 px-6 rounded-xl font-semibold"> Continue to Dashboard </button>
+      </form>
+      <div class="bg-purple-50 border border-purple-200 rounded-xl p-4">
+       <h4 class="text-sm font-semibold text-purple-900 mb-2">Benefits for Providers:</h4>
+       <ul class="space-y-1 text-xs text-purple-800">
+        <li>✓ Free advertisement in the app</li>
+        <li>✓ Reach thousands of eco-conscious users</li>
+        <li>✓ Earn eco-points &amp; recognition</li>
+        <li>✓ Support community &amp; environment</li>
+       </ul>
+      </div>
+     </div>
+    </div><!-- PROVIDER DASHBOARD -->
+    <div id="providerDashboard" class="hidden min-h-full">
+     <div class="gradient-dark text-white p-6 rounded-b-3xl mb-6"><button onclick="providerLogout()" class="text-white text-sm font-medium mb-4">← Logout</button>
+      <h2 class="text-xl font-bold mb-1" id="providerBusinessName">GreenMart</h2>
+      <p class="text-sm opacity-90">Provider Dashboard</p>
+     </div>
+     <div class="px-6 pb-6"><!-- Stats -->
+      <div class="grid grid-cols-3 gap-3 mb-6">
+       <div class="bg-white p-4 rounded-xl text-center card-glow">
+        <div class="text-2xl font-bold text-emerald-600">
+         156
+        </div>
+        <div class="text-xs text-gray-600">
+         Rewards Given
+        </div>
+       </div>
+       <div class="bg-white p-4 rounded-xl text-center card-glow">
+        <div class="text-2xl font-bold text-blue-600">
+         3.2k
+        </div>
+        <div class="text-xs text-gray-600">
+         Impressions
+        </div>
+       </div>
+       <div class="bg-white p-4 rounded-xl text-center card-glow">
+        <div class="text-2xl font-bold text-purple-600">
+         850
+        </div>
+        <div class="text-xs text-gray-600">
+         Eco Points
+        </div>
+       </div>
+      </div><!-- Add Rewards -->
+      <div class="bg-white rounded-2xl p-6 card-glow mb-6">
+       <h3 class="text-sm font-semibold text-gray-800 mb-4">Manage Rewards</h3>
+       <div class="space-y-3">
+        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+         <div class="flex items-center"><span class="text-2xl mr-3">🍲</span>
+          <div>
+           <div class="text-sm font-medium text-gray-800">
+            Food Items
+           </div>
+           <div class="text-xs text-gray-500">
+            12 available
+           </div>
+          </div>
+         </div><button onclick="toggleRewardAvailability('food')" class="bg-emerald-500 text-white px-4 py-2 rounded-lg text-xs font-medium"> Available </button>
+        </div>
+        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+         <div class="flex items-center"><span class="text-2xl mr-3">🎟️</span>
+          <div>
+           <div class="text-sm font-medium text-gray-800">
+            Shopping Coupons
+           </div>
+           <div class="text-xs text-gray-500">
+            ₹50 value each
+           </div>
+          </div>
+         </div><button onclick="toggleRewardAvailability('coupons')" class="bg-emerald-500 text-white px-4 py-2 rounded-lg text-xs font-medium"> Available </button>
+        </div>
+        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+         <div class="flex items-center"><span class="text-2xl mr-3">👕</span>
+          <div>
+           <div class="text-sm font-medium text-gray-800">
+            Clothes
+           </div>
+           <div class="text-xs text-gray-500">
+            8 items
+           </div>
+          </div>
+         </div><button onclick="toggleRewardAvailability('clothes')" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg text-xs font-medium"> Out of Stock </button>
+        </div>
+       </div><button onclick="addNewReward()" class="w-full mt-4 bg-emerald-500 text-white py-3 px-4 rounded-lg text-sm font-medium"> + Add New Reward Item </button>
+      </div><!-- Advertisement -->
+      <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl p-6">
+       <h3 class="text-sm font-semibold mb-2">Your Advertisement</h3>
+       <p class="text-xs opacity-90 mb-4">Your shop is being promoted to 10,000+ users!</p>
+       <div class="bg-white bg-opacity-20 p-4 rounded-lg backdrop-blur-sm">
+        <div class="text-xs opacity-75 mb-1">
+         Sponsored Rewards
+        </div>
+        <div class="text-lg font-bold">
+         GreenMart - Eco-Friendly Shopping
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+        // Configuration
+        const defaultConfig = {
+            app_title: "QRClean India",
+            tagline: "Clean India, One Scan at a Time",
+            eco_points_label: "Eco Points"
+        };
+
+        // State
+        let currentUser = {
+            ecoPoints: 0,
+            reports: 0,
+            rank: "-"
+        };
+        
+        let selectedRewardType = null;
+        let currentProvider = null;
+
+        // SDK Initialization
+        async function initSDK() {
+            const dataHandler = {
+                onDataChanged(data) {
+                    console.log('Data updated:', data);
+                    updateUserStats(data);
+                }
+            };
+
+            if (window.dataSdk) {
+                const result = await window.dataSdk.init(dataHandler);
+                if (!result.isOk) {
+                    console.error('Failed to initialize Data SDK');
+                }
+            }
+
+            if (window.elementSdk) {
+                window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange: async (config) => {
+                        document.getElementById('appTitle').textContent = config.app_title || defaultConfig.app_title;
+                        document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
+                        document.getElementById('ecoPointsLabel').textContent = config.eco_points_label || defaultConfig.eco_points_label;
+                    },
+                    mapToCapabilities: (config) => ({
+                        recolorables: [
+                            {
+                                get: () => config.primary_color || "#10b981",
+                                set: (value) => {
+                                    config.primary_color = value;
+                                    window.elementSdk.setConfig({ primary_color: value });
+                                }
+                            }
+                        ],
+                        borderables: [],
+                        fontEditable: undefined,
+                        fontSizeable: undefined
+                    }),
+                    mapToEditPanelValues: (config) => new Map([
+                        ["app_title", config.app_title || defaultConfig.app_title],
+                        ["tagline", config.tagline || defaultConfig.tagline],
+                        ["eco_points_label", config.eco_points_label || defaultConfig.eco_points_label]
+                    ])
+                });
+            }
+        }
+
+        // Navigation Functions
+        function showScreen(screenId) {
+            const screens = ['homeScreen', 'qrScanScreen', 'reportScreen', 'verificationScreen', 
+                            'rewardScreen', 'confirmationScreen', 'leaderboardScreen', 'myRewardsScreen', 
+                            'impactScreen', 'providerLoginScreen', 'providerDashboard'];
+            screens.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        function goHome() {
+            showScreen('homeScreen');
+        }
+
+        function showUserMenu() {
+            // Would show user profile menu
+            alert('User profile menu would open here');
+        }
+
+        // User Flow Functions
+        function scanQRCode() {
+            showScreen('qrScanScreen');
+            // Reset to camera view
+            document.getElementById('cameraViewfinder').style.display = 'block';
+            document.getElementById('qrCodeDisplay').classList.add('hidden');
+            document.getElementById('simulateBtn').textContent = '📱 Position Camera & Show QR Code';
+        }
+
+        function showQRCode() {
+            // Hide camera view and show QR code
+            document.getElementById('cameraViewfinder').style.display = 'none';
+            document.getElementById('qrCodeDisplay').classList.remove('hidden');
+            document.getElementById('simulateBtn').textContent = '✅ Tap QR Code to Scan';
+        }
+
+        function qrDetected() {
+            showScreen('reportScreen');
+        }
+
+        function reportWebsite() {
+            showScreen('reportScreen');
+        }
+
+        function captureWastePhoto() {
+            document.getElementById('cameraView').style.display = 'block';
+            document.getElementById('photoPreview').style.display = 'none';
+            document.getElementById('uploadSection').classList.add('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('cameraView').style.display = 'none';
+                document.getElementById('photoPreview').classList.remove('hidden');
+                document.getElementById('uploadSection').classList.remove('hidden');
+            }, 1000);
+        }
+
+        function uploadAndVerify() {
+            showScreen('verificationScreen');
+            
+            // Simulate AI verification steps
+            setTimeout(() => {
+                document.getElementById('aiStep1').classList.remove('opacity-50');
+            }, 400);
+            setTimeout(() => {
+                document.getElementById('aiStep2').classList.remove('opacity-50');
+            }, 800);
+            setTimeout(() => {
+                document.getElementById('aiStep3').classList.remove('opacity-50');
+            }, 1200);
+            setTimeout(() => {
+                document.getElementById('aiStep4').classList.remove('opacity-50');
+            }, 1600);
+            setTimeout(() => {
+                showScreen('rewardScreen');
+            }, 2500);
+        }
+
+        function selectReward(type, available) {
+            if (!available) {
+                // Show unavailable message
+                const unavailableMsg = document.createElement('div');
+                unavailableMsg.className = 'fixed bottom-4 left-4 right-4 bg-red-500 text-white p-4 rounded-xl text-center slide-up';
+                unavailableMsg.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} rewards are currently unavailable. Please choose another option.`;
+                document.body.appendChild(unavailableMsg);
+                setTimeout(() => unavailableMsg.remove(), 3000);
+                return;
+            }
+            
+            selectedRewardType = type;
+            
+            // Update reward card
+            const rewardValues = {
+                money: { icon: '💰', value: '₹20', desc: 'Credited to your wallet' },
+                food: { icon: '🍲', value: 'Free Meal Voucher', desc: 'Sponsored by EcoCafe' },
+                clothes: { icon: '👕', value: 'Clothing Item', desc: 'Sponsored by FashionHub' },
+                coupons: { icon: '🎟️', value: '₹50 Shopping Coupon', desc: 'Valid at GreenMart' }
+            };
+            
+            const reward = rewardValues[type];
+            document.getElementById('rewardValue').textContent = `${reward.icon} ${reward.value}`;
+            document.getElementById('rewardDescription').textContent = reward.desc;
+            document.getElementById('pointsEarned').textContent = '+50';
+            
+            // Update user stats
+            currentUser.ecoPoints += 50;
+            currentUser.reports += 1;
+            updateUserDisplay();
+            
+            // Save to SDK
+            saveReport(type);
+            
+            showScreen('confirmationScreen');
+        }
+
+        async function saveReport(rewardType) {
+            if (window.dataSdk) {
+                const report = {
+                    id: 'RPT' + Date.now(),
+                    user_id: 'USER001',
+                    waste_photo: 'captured',
+                    location: 'Near Arunachala College',
+                    reward_type: rewardType,
+                    eco_points: 50,
+                    status: 'pending',
+                    timestamp: Date.now(),
+                    verified: true
+                };
+                
+                const result = await window.dataSdk.create(report);
+                if (!result.isOk) {
+                    console.error('Failed to save report');
+                }
+            }
+        }
+
+        function showLeaderboard() {
+            showScreen('leaderboardScreen');
+        }
+
+        function switchLeaderboardTab(tab) {
+            document.getElementById('weeklyTab').className = 'flex-1 py-2 px-4 rounded-md text-sm font-medium text-gray-600';
+            document.getElementById('monthlyTab').className = 'flex-1 py-2 px-4 rounded-md text-sm font-medium text-gray-600';
+            
+            if (tab === 'weekly') {
+                document.getElementById('weeklyTab').className = 'flex-1 py-2 px-4 rounded-md text-sm font-medium bg-white text-emerald-600 shadow-sm';
+            } else {
+                document.getElementById('monthlyTab').className = 'flex-1 py-2 px-4 rounded-md text-sm font-medium bg-white text-emerald-600 shadow-sm';
+            }
+        }
+
+        function showRewards() {
+            showScreen('myRewardsScreen');
+        }
+
+        function showImpact() {
+            showScreen('impactScreen');
+        }
+
+        // Provider Functions
+        function showProviderLogin() {
+            showScreen('providerLoginScreen');
+        }
+
+        function providerLogin(event) {
+            event.preventDefault();
+            
+            currentProvider = {
+                type: document.getElementById('providerType').value,
+                name: document.getElementById('businessName').value,
+                phone: document.getElementById('providerPhone').value
+            };
+            
+            document.getElementById('providerBusinessName').textContent = currentProvider.name;
+            showScreen('providerDashboard');
+        }
+
+        function providerLogout() {
+            currentProvider = null;
+            goHome();
+        }
+
+        function toggleRewardAvailability(type) {
+            // Toggle reward availability
+            const msg = document.createElement('div');
+            msg.className = 'fixed bottom-4 left-4 right-4 bg-emerald-500 text-white p-4 rounded-xl text-center slide-up';
+            msg.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} availability updated!`;
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 2000);
+        }
+
+        function addNewReward() {
+            const msg = document.createElement('div');
+            msg.className = 'fixed bottom-4 left-4 right-4 bg-blue-500 text-white p-4 rounded-xl text-center slide-up';
+            msg.textContent = 'Add reward form would open here';
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 2000);
+        }
+
+        // Update Functions
+        function updateUserDisplay() {
+            document.getElementById('userEcoPoints').textContent = currentUser.ecoPoints;
+            document.getElementById('userReports').textContent = currentUser.reports;
+            document.getElementById('userRank').textContent = currentUser.rank;
+        }
+
+        function updateUserStats(data) {
+            if (data && data.length > 0) {
+                const totalPoints = data.reduce((sum, report) => sum + (report.eco_points || 0), 0);
+                currentUser.ecoPoints = totalPoints;
+                currentUser.reports = data.length;
+                updateUserDisplay();
+            }
+        }
+
+        // Initialize on load
+        initSDK();
+    </script>
+ </body>
+</html>
